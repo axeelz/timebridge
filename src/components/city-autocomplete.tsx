@@ -50,7 +50,7 @@ export default function CityAutocomplete({
     try {
       const cities = CITY_DATA.filter((city) => city.city.toLowerCase().startsWith(searchQuery.toLowerCase()))
         .sort((a, b) => (b.pop || 0) - (a.pop || 0))
-        .slice(0, 25);
+        .slice(0, 15);
       setSuggestions(cities);
     } catch (error) {
       console.error("Error filtering cities:", error);
@@ -103,15 +103,12 @@ export default function CityAutocomplete({
             {suggestions.map((city, index) => (
               <button
                 key={index}
-                onPointerDown={(e) => {
+                onMouseDown={(e) => {
+                  // Prevent input blur
                   e.preventDefault();
-                  handleCitySelect(city);
                 }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleCitySelect(city);
-                  }
+                onClick={() => {
+                  handleCitySelect(city);
                 }}
                 role="option"
                 type="button"
