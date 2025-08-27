@@ -4,10 +4,12 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
 import { Clock, Settings, Globe } from "lucide-react";
 import CityAutocomplete from "./city-autocomplete";
 import TimelineView from "./timeline-view";
 import SettingsPanel from "./settings-panel";
+import { getDSTStatus, dstLabels, dstVariants } from "@/lib/dst-utils";
 import type { CityData } from "city-timezones";
 import type { TimeSettings } from "@/types";
 
@@ -55,6 +57,9 @@ export default function App() {
   const currentTime1 = timeFormatter1 ? timeFormatter1.format(now) : "";
   const currentTime2 = timeFormatter2 ? timeFormatter2.format(now) : "";
 
+  const city1DSTStatus = city1?.timezone ? getDSTStatus(city1.timezone, new Date(now)) : null;
+  const city2DSTStatus = city2?.timezone ? getDSTStatus(city2.timezone, new Date(now)) : null;
+
   return (
     <div className="container mx-auto px-4 py-10 max-w-4xl">
       <div className="text-center mb-8">
@@ -84,6 +89,9 @@ export default function App() {
                   {city1.city}, {city1.country}
                 </p>
                 <p className="text-xs text-muted-foreground">{city1.timezone}</p>
+                {city1DSTStatus && (
+                  <Badge variant={dstVariants[city1DSTStatus]}>{dstLabels[city1DSTStatus]}</Badge>
+                )}
               </div>
             )}
           </div>
@@ -111,6 +119,9 @@ export default function App() {
                   {city2.city}, {city2.country}
                 </p>
                 <p className="text-xs text-muted-foreground">{city2.timezone}</p>
+                {city2DSTStatus && (
+                  <Badge variant={dstVariants[city2DSTStatus]}>{dstLabels[city2DSTStatus]}</Badge>
+                )}
               </div>
             )}
           </div>
