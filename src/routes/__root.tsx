@@ -66,7 +66,7 @@ export const Route = createRootRoute({
     ],
     scripts: [
       {
-        src: "https://umami.axeelz.com/script.js",
+        src: "https://umami.axeelz.com/entrypoint",
         defer: true,
         "data-website-id": "7c7ca4a5-3c2e-406d-b50b-d2ed774aed64",
       },
