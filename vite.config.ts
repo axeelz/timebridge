@@ -7,5 +7,5 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-  plugins: [tsConfigPaths(), tanstackStart({ customViteReactPlugin: true, target: "vercel" }), viteReact()],
+  plugins: [tsConfigPaths(), tanstackStart({ customViteReactPlugin: true, target: "netlify" }), viteReact()],
 });
